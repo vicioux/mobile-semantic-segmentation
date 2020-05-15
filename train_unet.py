@@ -149,5 +149,5 @@ if __name__ == '__main__':
     )
     args, _ = parser.parse_known_args()
     print(args)
-    # run_cv(**vars(args))
+    run_cv(**vars(args))
 
