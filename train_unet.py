@@ -56,12 +56,12 @@ def get_data_loaders(train_files, val_files, img_size=224):
         ToTensor(),
     ])
 
-    train_loader = DataLoader(MaskDataset(train_files, train_transform),
+    train_loader = torch.utils.data.DataLoader(MaskDataset(train_files, train_transform),
                               batch_size=BATCH_SIZE,
                               shuffle=True,
                               pin_memory=True,
                               num_workers=4)
-    val_loader = DataLoader(MaskDataset(val_files, val_transform),
+    val_loader = torch.utils.data.DataLoader(MaskDataset(val_files, val_transform),
                             batch_size=BATCH_SIZE,
                             shuffle=False,
                             pin_memory=True,
@@ -115,7 +115,7 @@ def run_cv(img_size, pre_trained):
         trainer = Trainer(data_loaders, criterion, device, on_after_epoch)
 
         model = MobileNetV2_unet(pre_trained=pre_trained)
-        model.to(device)
+        model.to(device=device)
         optimizer = Adam(model.parameters(), lr=LR)
 
         hist = trainer.train(model, optimizer, num_epochs=N_EPOCHS)

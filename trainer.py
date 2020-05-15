@@ -32,13 +32,14 @@ class Trainer:
         data_loader = self.data_loaders[0]
         running_loss = 0.0
 
-        for inputs, labels in data_loader:
+        for inputs, labels in data_loader.dataset:
             inputs = inputs.to(self.device)
             labels = labels.to(self.device)
 
             optimizer.zero_grad()
 
             with torch.set_grad_enabled(True):
+                inputs = inputs.unsqueeze(0)
                 outputs = model(inputs)
                 loss = self.criterion(outputs, labels)
                 loss.backward()
