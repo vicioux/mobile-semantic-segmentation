@@ -4,7 +4,7 @@ import onnx
 import torch
 from onnx import onnx_pb
 from onnx_coreml import convert
-from onnx_tf.backend import prepare
+#from onnx_tf.backend import prepare
 
 from nets.ImgWrapNet import ImgWrapNet
 
