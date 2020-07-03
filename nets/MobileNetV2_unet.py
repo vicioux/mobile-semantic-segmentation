@@ -45,7 +45,7 @@ class MobileNetV2_unet(nn.Module):
                 name = str(k)
                 if "backbone" in name:
                     name = name.replace("backbone.", "")
-                    print(name)
+                    #print(name)
                     new_state_dict[name] = v
 
             self.backbone.load_state_dict(new_state_dict)
