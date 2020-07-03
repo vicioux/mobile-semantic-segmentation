@@ -33,7 +33,22 @@ class MobileNetV2_unet(nn.Module):
         self._init_weights()
 
         if pre_trained is not None:
-            self.backbone.load_state_dict(torch.load(pre_trained))
+            state_dict = torch.load(pre_trained)
+            #print(state_dict)
+            
+            from collections import OrderedDict
+            new_state_dict = OrderedDict()
+
+            for k, v in state_dict.items():
+                #We just gonna need they backbone keys
+                #We really don't need the others -_-
+                name = str(k)
+                if "backbone" in name:
+                    name = name.replace("backbone.", "")
+                    print(name)
+                    new_state_dict[name] = v
+
+            self.backbone.load_state_dict(new_state_dict)
 
     def forward(self, x):
         for n in range(0, 2):
